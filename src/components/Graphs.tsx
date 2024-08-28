@@ -17,16 +17,16 @@ interface TabProps {
 export default function Graphs() {
   return (
     <>
-      <Grid container spacing={{ xs: 2, sm: 2, md: 2 }}>
+      <Grid container px={2} spacing={2}>
         {config.tabs.map((tab) => (
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={4} md={6}>
             <Tabs label={tab.label} value={tab.value} />
           </Grid>
         ))}
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={4} md={6}>
           <PieGraph />
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={12} md={8}>
           <BarGraph />
         </Grid>
       </Grid>
@@ -40,7 +40,7 @@ function PieGraph() {
       borderRadius={3}
       boxShadow={3}
       mb="2ch"
-      p="5ch"
+      p="4ch"
       width={300}
       height={400}
     >
@@ -76,10 +76,13 @@ function PieGraph() {
             itemMarkHeight: 10,
             markGap: 5,
             itemGap: 15,
-            labelStyle: {},
+          
           },
         }}
-      ></PieChart>
+      >
+        <Typography variant="subtitle1" color="grey" fontSize="10px">Total</Typography>
+        <Typography variant="h4" fontSize="10px">188,245</Typography>
+      </PieChart>
     </Box>
   );
 }
@@ -105,7 +108,7 @@ function BarGraph() {
       width={700}
       height={400}
     >
-      {" "}
+    
       <Grid container spacing={1}>
         <Grid item xs={6}>
           <Typography variant="h4" fontSize="20px" fontWeight="bold">
@@ -122,10 +125,16 @@ function BarGraph() {
         </Grid>
       </Grid>
       <BarChart
-        borderRadius={10}
+        borderRadius={5}
         colors={["#1b5e20", "#ffb300", "#2196f3"]}
         width={600}
-        height={300}
+        height={400}
+        yAxis={[
+          {
+            min: 10,
+            max: 100,
+          },
+        ]}
         xAxis={[
           {
             scaleType: "band",
@@ -143,11 +152,14 @@ function BarGraph() {
               "Nov",
               "Dec",
             ],
+            
+            tickSize:0,
+            
           },
         ]}
         grid={{ horizontal: true }}
         series={[
-          { ...Asia, stack: "total" },
+          { ...Asia, stack: "total"},
           { ...Europe, stack: "total" },
           { ...Americas, stack: "total" },
         ]}
@@ -155,7 +167,7 @@ function BarGraph() {
           legend: {
             direction: "row",
             position: { vertical: "top", horizontal: "left" },
-            padding: 5,
+            padding:{top:-10},
             itemMarkWidth: 10,
             itemMarkHeight: 10,
             markGap: 5,
